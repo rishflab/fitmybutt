@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Search from './Search.js';
-//import logo from './logo.svg';
+import Login from './Login.js';
 import './App.css';
-//import * as firebase from 'firebase';
+
+
 
 class App extends Component {
  
@@ -10,6 +11,7 @@ class App extends Component {
     return (
       <div className="App">
         <Search/>
+        <Login/>
       </div>
     );
   }

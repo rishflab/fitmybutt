@@ -4,10 +4,10 @@ class Jeans extends Component {
 
   render() {
     return (
-      <div>
-        <p>{this.props.itemData.brand}</p>
-        <p>waist:{this.props.itemData.waist}</p>
-        <p>inseam:{this.props.itemData.inseam}</p>
+      <div className="Jeans">
+        {this.props.itemData.brand},
+        waist:{this.props.itemData.waist},
+        inseam:{this.props.itemData.inseam}
       </div>
     );
   }

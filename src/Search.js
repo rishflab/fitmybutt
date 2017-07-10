@@ -40,7 +40,7 @@ class Search extends Component {
       
     render() {
         return (
-            <section>
+            <section className="Search">
                 <SearchButton handle={this.fetch}/>
                 {this.state.searchResults.map((item) => <Jeans itemData={item}/>)}
             </section>
