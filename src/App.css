@@ -16,14 +16,16 @@
   background-color: var(--powder-blue);
   display: flex;
   justify-content: space-between;
-  height: 40px;
+  height: 50px;
+  align-content: center;
 }
 
 .menu{
-  /*border: 1px solid #fff;   For debugging */
+  border: 1px solid #fff;   
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  
+  align-items: center; 
+  /* justify-content: flex-start; */
   /*border: 1px solid var(--blush);*/
 }
 
@@ -31,52 +33,53 @@
   /*border: 1px solid #fff;   For debugging */
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
+  border: 1px solid #fff;   
 }
 
 .nav-item{
-  padding:10px;
-}
+  padding-left:10px;
+  padding-right:10px;
+} 
 
 .content {
   color: var(--powder-blue);
   background-color: var(--cotton);
   display: flex;
-  flex: 3;
+  justify-content: space-between; 
+  /* height: 300px; */
+  flex: 1;
   order: 2; 
+  /* border: 5px solid #fff; */
 }
 
 .sidebar {
   height: 100vh;
+  min-width: 12em;
   background-color: var(--blush);
   color: var(--powder-blue);
   display:flex;
   /*min-width: 200px;
   max-width: 250px;*/
   justify-content: flex-start;
+  align-content: stretch;
   order: 1;
-  width: 200px;
+ 
 }
 
 .container {
   display: flex;
-}
-
-.header {
-  width: 900px;
-  height: 500px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  /* justify-content: space-around;  */
 }
 
 .item {
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 20%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   background-color: var(--bubblegum); 
+  margin: 20px;
 }
 
 

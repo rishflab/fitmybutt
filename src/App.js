@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Search from './Search.js';
 import Login from './Login.js';
+import Item from './Item.js'
 import './App.css';
 
 
 
 class App extends Component {
- 
+
+
   render() {
     return (
     <div>
@@ -23,12 +25,14 @@ class App extends Component {
       <div className='container'>
        
         <div className="content">
-          ergreg
+          <div className='item'/>
+          <div className='item'/>
+          <div className='item'/>
         </div>
        
-        <div className="sidebar">
+        {/* <div className="sidebar">
           dgt
-        </div>
+        </div> */}
 
       </div>
     </div>
