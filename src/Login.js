@@ -4,30 +4,28 @@ import React, { Component } from 'react';
 
 
 class Login extends Component {
-    constructor(props){
-        super(props);
-        this.state = {email:'', password:''};
-       
-    }
-     
+    
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.props.handleSubmit}>
 
                 <label>Email:</label>
-                <input type="email" value={this.state.email} onChange={this.handleEmailChange}/>
+                <input type="email" value={this.props.email} onChange={this.props.handleEmailChange}/>
             
                 <label>Password:</label> 
-                <input type="password" value={this.state.password} onChange = {this.handlePasswordChange}/>
+                <input type="password" value={this.props.password} onChange = {this.props.handlePasswordChange}/>
                        
                 <input type="submit" value="Login"/>
-                {/*<input type="submit" value="Sign Up"/>*/}
+        
 
-                <button onClick={this.handleLogout} value='Sign Out'>Log Out</button>
+                <button onClick={this.props.handleLogout} value='Sign Out'>Log Out</button>
             
             </form>
         );
-    } 
+    }
+
+   
+  
 }
 
 export default Login;

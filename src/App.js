@@ -2,18 +2,28 @@ import React, { Component } from 'react';
 import Search from './Search.js';
 import Login from './Login.js';
 import './App.css';
-import * as fb from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
 
 
-  
-  
+
+
 class App extends Component {
 
   constructor(){
     super()
+
+    this.state = {
+      email: '',
+      password:''
+    };
+    
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
 
     var config = {
       apiKey: "AIzaSyDQEAoSJQkSWIz_ffBfPBiizAqlAUMbceQ",
@@ -24,29 +34,23 @@ class App extends Component {
       messagingSenderId: "80593664722"
     };
 
-    
-    fb.initializeApp(config);
+    firebase.initializeApp(config);
 
-    fb.auth().onAuthStateChanged(function(user){
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-          console.log(user.email);
+        console.log(user.email);
       } else {
-          console.log('no user logged in');
+        console.log('no user logged in');
       }
     });
-    
-    var db = fb.database(); 
-    this.state = {firebase: fb, database: db};
-
-    
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
 
   }
 
+  // componentDidMount(){
+  //   const rootRef = firebase.database().ref().child('react');
+  // }
 
+  
   render() {
     return (
     <div>
@@ -71,6 +75,7 @@ class App extends Component {
             handleSubmit = {this.handleSubmit} 
             handleEmailChange = {this.handleEmailChange} 
             handlePasswordChange = {this.handlePasswordChange}
+            handleLogout = {this.handleLogout}
           />
         </div>
 
@@ -80,36 +85,39 @@ class App extends Component {
     );
   }
 
-   handleSubmit(e){
-        e.preventDefault();
-        console.log('submitted', this.state.email, this.state.password);
-        this.props.firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-            // ...
-        });
-    }
+  handleSubmit(e){
+      e.preventDefault();
+      console.log('submitted', this.state.email, this.state.password);
+      firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          // ...
+      });
+  }
 
-    handleLogout(e){
-        e.preventDefault();
-        this.props.firebase.auth().signOut().then(function() {
-            // Sign-out successful.
-            console.log('signout success');
-        }).catch(function(error) {
-            // An error happened.
-            console.log(error);
-        });
-    }
+  handleLogout(e){
+      e.preventDefault();
+      firebase.auth().signOut().then(function() {
+          // Sign-out successful.
+          console.log('signout success');
+      }).catch(function(error) {
+          // An error happened.
+          console.log(error);
+      });
+  }
 
-    handlePasswordChange(e){
-        this.setState({password: e.target.value});
-    }
+  handlePasswordChange(e){
+      this.setState({password: e.target.value});
+  }
 
-    handleEmailChange(e){
-        this.setState({email: e.target.value});
-    }
+  handleEmailChange(e){
+      this.setState({email: e.target.value});
+  }
+
+
+  
 }
 
 
