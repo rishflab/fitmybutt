@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import Jeans from './Jeans';
-import SearchButton from './SearchButton.js';
+import Item from './Item.js'
+
 
 class Search extends Component {
 
     constructor(props){
         super(props);
-
         this.state = {
             genes: [
                 {
+                    key: 0,
                     brand: "Levis",
                     model: "501",
                     size: 32,
@@ -17,6 +17,7 @@ class Search extends Component {
                     inseam: 32
                 },
                 {
+                    key: 1,
                     brand: "Wrangler",
                     model: "Spencer",
                     size: 32,
@@ -24,6 +25,7 @@ class Search extends Component {
                     inseam: 32
                 },
                 {
+                    key: 2,
                     brand: "Uniqlo",
                     model: "Stretch Skinny",
                     size: 32,
@@ -31,28 +33,47 @@ class Search extends Component {
                     inseam: 30
                 }
             ],
-            searchResults: []
+            searchResults: [],
         }
 
-           this.fetch = this.fetch.bind(this);
+           this.handleSubmit = this.handleSubmit.bind(this);
+        //    this.handleChange = this.handleChange.bind(this);
     }
     
       
     render() {
         return (
-            <section className="Search">
-                <SearchButton handle={this.fetch}/>
-                {this.state.searchResults.map((item) => <Jeans itemData={item}/>)}
-            </section>
+            <div>
+                
+                <form onSubmit={this.handleSubmit}>
+                    <div className='form-row'>  
+                    <label>
+                        Waist:
+                        <input type="text"/>
+                    </label>
+                    </div>
+                    
+                    <input type="submit" value='Submit'/>
+                </form>
+           
+                {this.state.searchResults.map((item) => <Item key={item.key} itemData={item}/>)}
+
+             </div>
         );
     }
 
-    fetch(){
-
+    handleSubmit(e){
+        e.preventDefault(); //This line is needed to prevent dissapear after render bug
         var results = this.state.genes;
         this.setState({searchResults : results});
         console.log(this.state.searchResults)
     };
+
+    
+    // handleChange(){
+
+    
+    // };
   
 }
 
