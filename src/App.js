@@ -7,9 +7,6 @@ import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
 
-
-
-
 class App extends Component {
 
   constructor(){
@@ -17,13 +14,16 @@ class App extends Component {
 
     this.state = {
       email: '',
-      password:''
+      password:'',
+      currentUser: 'none',
+      query: {
+        waist: 0,
+        inseam: 0,
+        thigh: 0,
+        frontRise: 0
+      }
     };
     
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
 
     var config = {
       apiKey: "AIzaSyDQEAoSJQkSWIz_ffBfPBiizAqlAUMbceQ",
@@ -36,27 +36,27 @@ class App extends Component {
 
     firebase.initializeApp(config);
 
+    
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(user.email);
+      
+        this.setState({currentUser: user.email});
+          console.log(this.state.currentUser);
       } else {
-        console.log('no user logged in');
+       
+        this.setState({currentUser: 'none'});
+         console.log(this.state.currentUser);
       }
     });
 
   }
-
-  // componentDidMount(){
-  //   const rootRef = firebase.database().ref().child('react');
-  // }
-
   
   render() {
     return (
     <div>
       <div className='navbar'>
         <div className='menu'>
-          <div className='nav-item'>Menu</div>
+          <div className='nav-item'>Logo</div>
         </div>
         <div className='links'>   
           <div className='nav-item'>Sign Up</div>
@@ -67,15 +67,24 @@ class App extends Component {
       <div className='container'>
        
         <div className="content">
-          <Search/>
+          <Search
+            loadTestData = {this.loadTestData}
+            handleInseamChange = {this.handleInseamChange}
+            handleWaistChange = {this.handleWaistChange}
+            handleThighChange = {this.handleThighChange}
+            handleFrontRiseChange = {this.handleFrontRiseChange}
+            handleSearch = {this.handleSearch}
+          />
         </div>
 
         <div className = 'content'>
           <Login 
-            handleSubmit = {this.handleSubmit} 
+            handleLogin = {this.handleLogin} 
             handleEmailChange = {this.handleEmailChange} 
             handlePasswordChange = {this.handlePasswordChange}
             handleLogout = {this.handleLogout}
+            handleRegister = {this.handleRegister}
+            authState = {this.state.currentUser}
           />
         </div>
 
@@ -85,36 +94,73 @@ class App extends Component {
     );
   }
 
-  handleSubmit(e){
+  handleLogin = (e) => {
       e.preventDefault();
       console.log('submitted', this.state.email, this.state.password);
-      firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-          // ...
+      firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(error => {
+        console.log(error.Code, error.Message);
       });
   }
 
-  handleLogout(e){
+  handleRegister = (e) => {
       e.preventDefault();
-      firebase.auth().signOut().then(function() {
-          // Sign-out successful.
-          console.log('signout success');
-      }).catch(function(error) {
-          // An error happened.
-          console.log(error);
+      console.log('register button pressed');
+      firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(error => {
+        console.log (error.code, error.message);
       });
   }
 
-  handlePasswordChange(e){
-      this.setState({password: e.target.value});
+  handleLogout = (e) => {
+    e.preventDefault();
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      console.log('signout success');
+    }).catch(function(error) {
+      // An error happened.
+      console.log(error);
+    });
   }
 
-  handleEmailChange(e){
-      this.setState({email: e.target.value});
+  handlePasswordChange = (e) => {
+    this.setState({password: e.target.value});
   }
+
+  handleEmailChange = (e) => {
+    this.setState({email: e.target.value});
+  }
+
+  loadTestData = (e) => {
+    e.preventDefault();
+    firebase.database().ref('/jeans/').once('value').then(snapshot => {
+      console.log(snapshot.val());
+    });
+  }
+
+  handleWaistChange = (e) => {
+    e.preventDefault();
+    this.setState({query: {waist: e.target.value}});
+  }
+
+  handleInseamChange = (e) => {
+    e.preventDefault();
+    this.setState({query: {inseam: e.target.value}});
+  }
+
+  handleThighChange = (e) => {
+    e.preventDefault();
+    this.setState({query: {thigh: e.target.value}});
+  }
+
+  handleFrontRiseChange = (e) => {
+    e.preventDefault();
+    this.setState({query: {frontRise: e.target.value}})
+  }
+
+  handleSearch = (e) => {
+    e.preventDefault();
+    console.log("search Button pressed");
+  }
+
 
 
   

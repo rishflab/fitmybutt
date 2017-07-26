@@ -1,79 +1,40 @@
 import React, { Component } from 'react';
-import Item from './Item.js'
+// import Item from './Item.js'
 
 
 class Search extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            genes: [
-                {
-                    key: 0,
-                    brand: "Levis",
-                    model: "501",
-                    size: 32,
-                    waist: 32,
-                    inseam: 32
-                },
-                {
-                    key: 1,
-                    brand: "Wrangler",
-                    model: "Spencer",
-                    size: 32,
-                    waist: 33,
-                    inseam: 32
-                },
-                {
-                    key: 2,
-                    brand: "Uniqlo",
-                    model: "Stretch Skinny",
-                    size: 32,
-                    waist: 32,
-                    inseam: 30
-                }
-            ],
-            searchResults: [],
-        }
-
-           this.handleSubmit = this.handleSubmit.bind(this);
-        //    this.handleChange = this.handleChange.bind(this);
-    }
-    
       
     render() {
         return (
             <div>
                 
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.props.loadTestData}>
                     <div className='form-row'>  
-                    <label>
-                        Waist:
-                        <input type="text"/>
-                    </label>
-                    </div>
+
+                    <label>Waist:</label>
+                    <input onChange={this.props.handleWaistChange} type="text"/>
+
+                    <label>Inseam:</label>
+                    <input onChange={this.props.handleInseamChange} type="text"/>
+
+                    <label>Thigh:</label>
+                    <input onChange={this.props.handleThighChange} type="text"/>
+
+                    <label>Front Rise:</label>
+                    <input onChange={this.props.handleFrontRiseChange} type="text"/>
                     
-                    <input type="submit" value='Submit'/>
+                    </div>
+                    <button onClick={this.props.handleSearch}>Search</button>
+                    <input type="submit" value='LoadData'/>
                 </form>
            
-                {this.state.searchResults.map((item) => <Item key={item.key} itemData={item}/>)}
+                {/*{this.state.searchResults.map((item) => <Item key={item.key} itemData={item}/>)}*/}
 
              </div>
         );
     }
 
-    handleSubmit(e){
-        e.preventDefault(); //This line is needed to prevent dissapear after render bug
-        var results = this.state.genes;
-        this.setState({searchResults : results});
-        console.log(this.state.searchResults)
-    };
-
-    
-    // handleChange(){
-
-    
-    // };
   
 }
 

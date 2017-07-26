@@ -21,7 +21,7 @@
 }
 
 .menu{
-  border: 1px solid #fff;   
+  /*border: 1px solid #fff;   */
   display: flex;
   
   align-items: center; 
@@ -34,7 +34,7 @@
   display: flex;
   align-items: center;
   /* justify-content: flex-end; */
-  border: 1px solid #fff;   
+  /*border: 1px solid #fff;   */
 }
 
 .nav-item{
@@ -95,14 +95,14 @@ form {
   margin: 0 0 40px 0;
 }
 
-.form-row {
+/*.form-row {
   margin-bottom: 40px;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   flex-wrap: wrap;
   border: 4px solid brown;
-}
+}*/
 
 .form-row input[type='text'] {
   background-color: #FFFFFF;
