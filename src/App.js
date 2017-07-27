@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Search from './Search.js';
 import Login from './Login.js';
+import Upload from './Upload.js';
 import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -21,7 +22,14 @@ class App extends Component {
         inseam: 0,
         thigh: 0,
         frontRise: 0
-      }
+      },
+      uploadBrand: '',
+      uploadModel:'',
+      uploadWaist: 0,
+      uploadInseam: 0,
+      uploadThigh: 0,
+      uploadFrontRise: 0,
+      searchResults:[]
     };
     
 
@@ -68,26 +76,37 @@ class App extends Component {
        
         <div className="content">
           <Search
-            loadTestData = {this.loadTestData}
-            handleInseamChange = {this.handleInseamChange}
-            handleWaistChange = {this.handleWaistChange}
-            handleThighChange = {this.handleThighChange}
-            handleFrontRiseChange = {this.handleFrontRiseChange}
-            handleSearch = {this.handleSearch}
+              loadTestData = {this.loadTestData}
+              handleInseamChange = {this.handleInseamChange}
+              handleWaistChange = {this.handleWaistChange}
+              handleThighChange = {this.handleThighChange}
+              handleFrontRiseChange = {this.handleFrontRiseChange}
+              handleSearch = {this.handleSearch}
           />
         </div>
 
         <div className = 'content'>
           <Login 
-            handleLogin = {this.handleLogin} 
-            handleEmailChange = {this.handleEmailChange} 
-            handlePasswordChange = {this.handlePasswordChange}
-            handleLogout = {this.handleLogout}
-            handleRegister = {this.handleRegister}
-            authState = {this.state.currentUser}
+              handleLogin = {this.handleLogin} 
+              handleEmailChange = {this.handleEmailChange} 
+              handlePasswordChange = {this.handlePasswordChange}
+              handleLogout = {this.handleLogout}
+              handleRegister = {this.handleRegister}
+              authState = {this.state.currentUser}
           />
         </div>
 
+        <div className = 'content'>
+            <Upload
+                handleBrandChange = {this.uploadBrandChange}
+                handleModelChange = {this.uploadModelChange}
+                handleInseamChange = {this.uploadInseamChange}
+                handleWaistChange = {this.uploadWaistChange}
+                handleThighChange = {this.uploadThighChange}
+                handleFrontRiseChange = {this.uploadFrontRiseChange}
+                handleUpload = {this.handleUpload}
+            />
+        </div>
       </div>
     </div>
  
@@ -159,6 +178,58 @@ class App extends Component {
   handleSearch = (e) => {
     e.preventDefault();
     console.log("search Button pressed");
+  }
+
+  handleUpload = (e) => {
+    e.preventDefault();
+
+        var jeansRef = firebase.database().ref().child('jeans');
+
+        // Write the new post's data simultaneously in the posts list and the user's post list.
+        console.log(this.state);
+        jeansRef.push({
+            brand: this.state.uploadBrand,
+            model: this.state.uploadModel,
+            waist: this.state.uploadWaist,
+            inseam: this.state.uploadInseam,
+            thigh: this.state.uploadThigh,
+            frontRise: this.state.uploadFrontRise
+        });
+        
+
+  }
+
+  
+  //Upload
+
+  uploadModelChange = (e) => {
+    e.preventDefault();
+    this.setState({uploadModel: e.target.value});
+  }
+
+  uploadBrandChange = (e) => {
+      e.preventDefault();
+      this.setState({uploadBrand: e.target.value});   
+  }
+
+  uploadWaistChange = (e) => {
+      e.preventDefault();
+      this.setState({uploadWaist: e.target.value});
+  }
+
+  uploadInseamChange = (e) => {
+      e.preventDefault();
+      this.setState({uploadInseam: e.target.value});
+  }
+
+  uploadThighChange = (e) => {
+      e.preventDefault();
+      this.setState({uploadThigh: e.target.value});
+  }
+
+  uploadFrontRiseChange = (e) => {
+      e.preventDefault();
+      this.setState({uploadFrontRise: e.target.value})
   }
 
 

@@ -10,6 +10,7 @@ class Search extends Component {
             <div>
                 
                 <form onSubmit={this.props.loadTestData}>
+                    <h3>Search for Clothing by Fit</h3>
                     <div className='form-row'>  
 
                     <label>Waist:</label>
@@ -26,7 +27,7 @@ class Search extends Component {
                     
                     </div>
                     <button onClick={this.props.handleSearch}>Search</button>
-                    <input type="submit" value='LoadData'/>
+                    <input type="submit" value='Display All'/>
                 </form>
            
                 {/*{this.state.searchResults.map((item) => <Item key={item.key} itemData={item}/>)}*/}

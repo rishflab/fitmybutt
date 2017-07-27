@@ -1,3 +1,8 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+    "dart.debugSdkLibraries": false,
+    "dart.debugExternalLibraries": false,
+    "typescript.check.tscVersion": false,
+    "editor.minimap.enabled": true,
+    "editor.tabSize": 4
 }
