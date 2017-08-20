@@ -33,6 +33,7 @@ export default class Search extends Component {
                     {this.props.searchResults.map(item =><Item
                         brand = {item.brand}
                         model = {item.model}
+                        score =  {item.score}
                         waist = {item.waist}
                         inseam = {item.inseam}
                         thigh = {item.thigh}

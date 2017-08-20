@@ -28,22 +28,20 @@ class App extends Component {
 
 
     this.state = {
-      email: '',
-      password:'',
-      currentUser: 'none',
-      query: {
+        email: '',
+        password:'',
+        currentUser: 'none',
         waist: 0,
         inseam: 0,
         thigh: 0,
-        frontRise: 0
-      },
-      uploadBrand: '',
-      uploadModel:'',
-      uploadWaist: 0,
-      uploadInseam: 0,
-      uploadThigh: 0,
-      uploadFrontRise: 0,
-      searchResults:[]
+        frontRise: 0,
+        uploadBrand: '',
+        uploadModel:'',
+        uploadWaist: 0,
+        uploadInseam: 0,
+        uploadThigh: 0,
+        uploadFrontRise: 0,
+        searchResults:[]
     };
     
 
@@ -161,37 +159,60 @@ class App extends Component {
 
   handleWaistChange = (e) => {
     e.preventDefault();
-    this.setState({query: {waist: e.target.value}});
+    this.setState({waist: e.target.value});
   }
 
   handleInseamChange = (e) => {
     e.preventDefault();
-    this.setState({query: {inseam: e.target.value}});
+    this.setState({inseam: e.target.value});
   }
 
   handleThighChange = (e) => {
     e.preventDefault();
-    this.setState({query: {thigh: e.target.value}});
+    this.setState( {thigh: e.target.value});
   }
 
   handleFrontRiseChange = (e) => {
     e.preventDefault();
-    this.setState({query: {frontRise: e.target.value}})
+    this.setState( {frontRise: e.target.value})
   }
 
     handleSearch = (e) => {
         e.preventDefault();
         console.log("search Button pressed");
+        console.log(this.state.query);
 
-        var buf =[];
+        var buf = [];
         firebase.database().ref().child('jeans').once('value', snapshot => {
             snapshot.forEach( item => {
-                
                 buf.push( item.val())
-               
-            })
-            this.setState({searchResults : buf});
-            // this.setState({searchResults:snapshot.getChildren()});
+                
+            });
+       
+            var w  = 2;
+
+            buf.map(item => {
+                item.score = 
+                Math.pow(Math.abs(this.state.waist - item.waist), w) +
+                Math.pow(Math.abs(this.state.inseam - item.inseam), w) +
+                Math.pow(Math.abs(this.state.frontRise - item.frontRise), w) +
+                Math.pow(Math.abs(this.state.thigh - item.thigh), w) 
+            });
+            console.log(buf);
+
+           
+
+            // buf.map(item =>
+                
+                
+            // );
+
+            buf.sort((a, b) => {
+                return parseFloat(a.score) - parseFloat(b.score);
+            });
+
+            console.log(buf);
+            this.setState({searchResults: buf});
             //console.log(this.state.searchResults);
         });
 
@@ -249,6 +270,10 @@ class App extends Component {
       e.preventDefault();
       this.setState({uploadFrontRise: e.target.value})
   }
+
+
+
+
 
 
 
