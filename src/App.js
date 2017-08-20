@@ -10,8 +10,22 @@ import 'firebase/storage';
 
 class App extends Component {
 
+  
   constructor(){
     super()
+
+    var config = {
+      apiKey: "AIzaSyDQEAoSJQkSWIz_ffBfPBiizAqlAUMbceQ",
+      authDomain: "sizeup-172404.firebaseapp.com",
+      databaseURL: "https://sizeup-172404.firebaseio.com",
+      projectId: "sizeup-172404",
+      storageBucket: "sizeup-172404.appspot.com",
+      messagingSenderId: "80593664722"
+    };
+
+    firebase.initializeApp(config);
+
+
 
     this.state = {
       email: '',
@@ -33,18 +47,10 @@ class App extends Component {
     };
     
 
-    var config = {
-      apiKey: "AIzaSyDQEAoSJQkSWIz_ffBfPBiizAqlAUMbceQ",
-      authDomain: "sizeup-172404.firebaseapp.com",
-      databaseURL: "https://sizeup-172404.firebaseio.com",
-      projectId: "sizeup-172404",
-      storageBucket: "sizeup-172404.appspot.com",
-      messagingSenderId: "80593664722"
-    };
 
-    firebase.initializeApp(config);
 
-    
+   
+
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
       
@@ -74,16 +80,17 @@ class App extends Component {
 
       <div className='container'>
        
-        <div className="content">
-          <Search
+          <div className="content">
+              <Search
               loadTestData = {this.loadTestData}
               handleInseamChange = {this.handleInseamChange}
               handleWaistChange = {this.handleWaistChange}
               handleThighChange = {this.handleThighChange}
               handleFrontRiseChange = {this.handleFrontRiseChange}
               handleSearch = {this.handleSearch}
-          />
-        </div>
+              searchResults = {this.state.searchResults}
+            />
+          </div>
 
         <div className = 'content'>
           <Login 
@@ -135,7 +142,7 @@ class App extends Component {
       // Sign-out successful.
       console.log('signout success');
     }).catch(function(error) {
-      // An error happened.
+      // An error happened
       console.log(error);
     });
   }
@@ -150,9 +157,6 @@ class App extends Component {
 
   loadTestData = (e) => {
     e.preventDefault();
-    firebase.database().ref('/jeans/').once('value').then(snapshot => {
-      console.log(snapshot.val());
-    });
   }
 
   handleWaistChange = (e) => {
@@ -175,15 +179,29 @@ class App extends Component {
     this.setState({query: {frontRise: e.target.value}})
   }
 
-  handleSearch = (e) => {
-    e.preventDefault();
-    console.log("search Button pressed");
-  }
+    handleSearch = (e) => {
+        e.preventDefault();
+        console.log("search Button pressed");
+
+        var buf =[];
+        firebase.database().ref().child('jeans').once('value', snapshot => {
+            snapshot.forEach( item => {
+                
+                buf.push( item.val())
+               
+            })
+            this.setState({searchResults : buf});
+            // this.setState({searchResults:snapshot.getChildren()});
+            //console.log(this.state.searchResults);
+        });
+
+       
+    }
 
   handleUpload = (e) => {
     e.preventDefault();
 
-        var jeansRef = firebase.database().ref().child('jeans');
+       var jeansRef = firebase.database().ref().child('jeans');
 
         // Write the new post's data simultaneously in the posts list and the user's post list.
         console.log(this.state);

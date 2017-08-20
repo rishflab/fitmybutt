@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-// import Item from './Item.js'
+import Item from './Item.js'
 
 
-class Search extends Component {
+export default class Search extends Component {
 
       
     render() {
         return (
             <div>
                 
-                <form onSubmit={this.props.loadTestData}>
+                <form >
                     <h3>Search for Clothing by Fit</h3>
                     <div className='form-row'>  
 
@@ -27,16 +27,25 @@ class Search extends Component {
                     
                     </div>
                     <button onClick={this.props.handleSearch}>Search</button>
-                    <input type="submit" value='Display All'/>
                 </form>
-           
-                {/*{this.state.searchResults.map((item) => <Item key={item.key} itemData={item}/>)}*/}
+
+                <div>
+                    {this.props.searchResults.map(item =><Item
+                        brand = {item.brand}
+                        model = {item.model}
+                        waist = {item.waist}
+                        inseam = {item.inseam}
+                        thigh = {item.thigh}
+                        frontRise = {item.frontRise}
+                    />)}
+
+                </div>
+
+         
+               
+  
 
              </div>
         );
-    }
-
-  
+    } 
 }
-
-export default Search;

@@ -37,7 +37,7 @@ class Upload extends Component {
                   
                 </form>
            
-                {/*{this.state.searchResults.map((item) => <Item key={item.key} itemData={item}/>)}*/}
+
 
              </div>
         );
