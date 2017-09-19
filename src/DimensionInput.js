@@ -5,7 +5,7 @@ export default class DimensionInput extends Component {
     render() {
         return (
             <fieldset className='DimensionInput'>
-                <label>Waist</label>
+                <label>{this.props.label}</label>
                 <input 
                     onChange={this.props.handleChange}
                     type="text"
@@ -13,9 +13,5 @@ export default class DimensionInput extends Component {
             </fieldset>
         );
     }
-
-    handleChange = (e) => {
-    }
-
 }
 

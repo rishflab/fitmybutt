@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-// import Item from './Item.js'
-
 
 class Upload extends Component {
-
-      
+ 
     render() {
         return (
             <form>
                 <h3>Upload Clothing Data</h3>
                 <div className='form-row'>  
-                
+                    
                 <label>Brand:</label>
                 <input onChange={this.props.handleBrandChange} type="text"/>
 

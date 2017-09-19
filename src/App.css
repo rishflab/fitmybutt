@@ -2,30 +2,51 @@
   margin: 0;
   padding: 0;
   font-family: 'Cabin', sans-serif;
+  --text: #111111;
+  --main: #333333;
+  --banner: #EEEEEE;
+  --background: #FFFFFF;
+  --page-width : 60em;
 }
+.Menu  {
+  background-color: var(--main);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 3em;
 
-
-
-form {
-    background-color: #F6F7F8;
-    border: 1px solid #D6D9DC;
-    border-radius: 3px;
-    width: 80%;
-    padding: 50px;
-    margin: 0 0 40px 0;
 }
+.Menu div {
+  display: flex;
+  justify-content: space-between;
+  width: var(--page-width);
 
+}
+Main {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+Main .container {
+  display: flex;
+  justify-content: space-between;
+  width: var(--page-width);
+}
+.MenuButton {
+  color: var(--background);
+  background-color: var(--main);
+  border: none;
+  margin: 1em;
+}
 .Banner  {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 32em;
-  color: #333333;
-  background-color: #EEEEEE;
+  color: dark;
+  background-color: var(--banner);
 }
-
-
 .DimensionInput{
   border: none;
   display: flex;
@@ -33,19 +54,40 @@ form {
   align-items: flex-start;
   margin: 0.5em;
 }
-
 .DimensionInput label {
     font-size: 10px;
 }
-
-
 .DimensionInput input {
-  background-color: #EEEEEE;
+  background-color: var(--banner);
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid #333333;
+  border-bottom: 1px solid var(--main);
   width: 4em;
 }
-
-
+.Item {
+  color: var(--main);
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+  width: 10em;
+};
+.Item img {
+  height: 2em;
+}
+.Item h1 {
+  font-size: 1em;
+}
+.Item h2 {
+  font-size: 0.8em;
+}
+.Item p {
+  font-size: 0.7em;
+}
+.Results {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}

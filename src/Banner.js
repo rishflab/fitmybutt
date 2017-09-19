@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import DimensionInput from './DimensionInput.js'
 
 export default class Banner extends Component {
-
-
     render() {
         return (
             <section className='Banner'>
