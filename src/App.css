@@ -1,26 +1,30 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: 'Cabin', sans-serif;
   --text: #111111;
   --main: #333333;
+  --muted: #555555;
   --banner: #EEEEEE;
   --background: #FFFFFF;
-  --page-width : 60em;
+  --page-width: 60rem;
+  --side-margin: 5rem;
 }
 .Menu  {
   background-color: var(--main);
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 3em;
+  height: 3rem;
 
 }
 .Menu div {
   display: flex;
   justify-content: space-between;
   width: var(--page-width);
-
+  padding-left: var(--side-margin);
+  padding-right: var(--side-margin);
 }
 Main {
   display: flex;
@@ -29,65 +33,116 @@ Main {
 }
 Main .container {
   display: flex;
-  justify-content: space-between;
+  padding-top: 1.5rem;
+  justify-content: center;
   width: var(--page-width);
+  padding-left: var(--side-margin);
+  padding-right: var(--side-margin);
 }
 .MenuButton {
   color: var(--background);
   background-color: var(--main);
   border: none;
-  margin: 1em;
+  margin: 1rem;
 }
 .Banner  {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 32em;
-  color: dark;
+  height: 10rem;
+  color: var(--text);
   background-color: var(--banner);
+  margin-bottom: 1rem;
+}
+.Banner h1 {
+  font-size: 2rem;
+}
+.Banner h5 {
+  margin-top: 0.3rem;
+}
+.Guide {
+  margin-top: 1rem;
+  color: var(--banner);
+  background-color: var(--main);
+  border: none;
+  border-radius: 0.1rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  font-size: 0.6rem;
 }
 .DimensionInput{
   border: none;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 0.5em;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .DimensionInput label {
-    font-size: 10px;
+    font-size: 0.6rem;
+    color: var(--muted);
 }
 .DimensionInput input {
-  background-color: var(--banner);
+  margin-top: 0.3rem;
+  background-color: var(--background);
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 1px solid var(--main);
-  width: 4em;
+  width: 6rem;
+  padding-bottom: 0.1rem;
+}
+.Search h5 {
+  padding-bottom: 1rem;
 }
 .Item {
   color: var(--main);
   background-color: var(--background);
   display: flex;
   flex-direction: column;
-  margin: 1em;
-  width: 10em;
+  margin: 1rem;
+  height: 15rem;
+  width: 10rem;
 };
-.Item img {
-  height: 2em;
-}
 .Item h1 {
-  font-size: 1em;
+  margin-top: 1rem;
+  font-size: 1rem;
 }
 .Item h2 {
-  font-size: 0.8em;
+  font-size: 0.8rem;
 }
 .Item p {
-  font-size: 0.7em;
+  font-size: 0.7rem;
+}
+.Item .title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .Results {
     display: flex;
+    flex-direction: column;
+}
+.Results .bad {
+    display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
+}
+.Results .good {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.Search {
+    width: 12rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    margin-right: 1rem;
+   
 }

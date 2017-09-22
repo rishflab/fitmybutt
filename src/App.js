@@ -9,19 +9,22 @@ import Banner from './Banner.js'
 import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/database';
-import 'firebase/storage';
+// import 'firebase/database';
+// import 'firebase/storage';
 
-const config = {
-    apiKey: "AIzaSyDQEAoSJQkSWIz_ffBfPBiizAqlAUMbceQ",
-    authDomain: "sizeup-172404.firebaseapp.com",
-    databaseURL: "https://sizeup-172404.firebaseio.com",
-    projectId: "sizeup-172404",
-    storageBucket: "sizeup-172404.appspot.com",
-    messagingSenderId: "80593664722"
-};
+// const config = {
+//     apiKey: "AIzaSyDQEAoSJQkSWIz_ffBfPBiizAqlAUMbceQ",
+//     authDomain: "sizeup-172404.firebaseapp.com",
+//     databaseURL: "https://sizeup-172404.firebaseio.com",
+//     projectId: "sizeup-172404",
+//     storageBucket: "sizeup-172404.appspot.com",
+//     messagingSenderId: "80593664722"
+// };
 
-firebase.initializeApp(config);
+// firebase.initializeApp(config);
+function measurementScore(measurement, target, weight) {
+    return Math.pow((Math.abs(measurement - target)/target), weight); 
+}
 
 export default class App extends Component {
 
@@ -31,33 +34,62 @@ export default class App extends Component {
             email: '',
             password:'',
             currentUser: 'none',
-            waist: 0,
-            inseam: 0,
-            thigh: 0,
-            frontRise: 0,
-            backRise: 0,
-            legOpening: 0,
-            searchResults:[]
+            waist: null,
+            inseam: null,
+            thigh: null,
+            frontRise: null,
+            backRise: null,
+            legOpening: null,
+            good:[],
+            bad: [],
+            searchResults:[
+                {brand:'Left Field NYC', model: "Indigo Miner Chino", price: 199, score: 0,
+                waist: 30, inseam: 30, thigh: 11, frontRise: 10, backRise: 13, legOpening: 7,
+                img: "./jeans.jpg", url:"www.pants.com"},
+                {brand:'Left Field NYC', model: "Indigo Miner Chino", price: 199, score: 0,
+                waist: 31, inseam: 31, thigh: 11.25, frontRise: 10.25, backRise: 13.25, legOpening: 7.25,
+                img: "./jeans.jpg", url:"www.pants.com"},
+                {brand:'Left Field NYC', model: "Indigo Miner Chino", price: 199, score: 0,
+                waist: 32, inseam: 32, thigh: 11.5, frontRise: 10.5, backRise: 13.5, legOpening: 7.5,
+                img: "./jeans.jpg", url:"www.pants.com"},
+                {brand:'Left Field NYC', model: "Indigo Miner Chino", price: 199, score: 0,
+                waist: 33, inseam: 33, thigh: 11.75, frontRise: 10.75, backRise: 13.5, legOpening: 7.5,
+                img: "./jeans.jpg", url:"www.pants.com"},
+                {brand:'Left Field NYC', model: "Indigo Miner Chino", price: 199, score: 0,
+                waist: 34, inseam: 33.5, thigh: 12, frontRise: 11, backRise: 13.75, legOpening: 7.75,
+                img: "./jeans.jpg", url:"www.pants.com"},
+                {brand:'Left Field NYC', model: "Indigo Miner Chino", price: 199, score: 0,
+                waist: 35, inseam: 34, thigh: 12.25, frontRise: 11.25, backRise: 14, legOpening: 7.75,
+                img: "./jeans.jpg", url:"www.pants.com"},
+                {brand:'Left Field NYC', model: "Indigo Miner Chino", price: 199, score: 0,
+                waist: 36, inseam: 34.5, thigh: 12.5, frontRise: 11.5, backRise: 14.25, legOpening: 8,
+                img: "./jeans.jpg", url:"www.pants.com"},
+                {brand:'Left Field NYC', model: "Indigo Miner Chino", price: 199, score: 0,
+                waist: 37, inseam: 35, thigh: 12.75, frontRise: 11.75, backRise: 14.5, legOpening: 8,
+                img: "./jeans.jpg", url:"www.pants.com"},
+            ]
         };
     }
 
-    componentDidMount(){
-        var buf = [];
+    // componentDidMount(){
+    //     var buf = [];
         
-        firebase.database().ref().child('jeans').once('value', snapshot => {
-            snapshot.forEach( item => {
-                buf.push( item.val())
-            });
-        });   
-        this.setState({searchResults: buf});
-    }
+    //     firebase.database().ref().child('jeans').once('value', snapshot => {
+    //         snapshot.forEach( item => {
+    //             buf.push( item.val())
+    //         });
+    //     });   
+    //     this.setState({searchResults: buf});
+    // }
   
     render() {
         return (
         <div>
             <Menu/>
+            <Banner/>
             <main>
                 <div className='container'>
+                    
                     <Search
                         handleWaistChange={this.handleWaistChange}
                         handleInseamChange={this.handleInseamChange}
@@ -67,108 +99,79 @@ export default class App extends Component {
                         handleLegOpeningChange={this.handleLegOpeningChange}
                     />
                     <Results
-                        searchResults={this.state.searchResults}
+                        good={this.state.good}
+                        bad={this.state.bad}
                     />
                 </div>
             </main>
         </div>
         );
     }
-
     handleWaistChange = (e) => {
         e.preventDefault();
         this.setState({waist: e.target.value}, sort => this.sortByFit());
     }
-
     handleInseamChange = (e) => {
         e.preventDefault();
         this.setState({inseam: e.target.value}, sort => this.sortByFit());
     }
-
     handleThighChange = (e) => {
         e.preventDefault();
         this.setState( {thigh: e.target.value}, sort => this.sortByFit());
     }
-
     handleFrontRiseChange = (e) => {
         e.preventDefault();
         this.setState( {frontRise: e.target.value}, sort => this.sortByFit())
     }
-
     handleBackRiseChange = (e) => {
         e.preventDefault();
         this.setState( {backRise: e.target.value}, sort => this.sortByFit())
     }
-
     handleLegOpeningChange = (e) => {
         e.preventDefault();
         this.setState( {legOpening: e.target.value}, sort => this.sortByFit())
     }
-
     handleKneeChange = (e) => {
         e.preventDefault();
         this.setState( {knee: e.target.value}, sort => this.sortByFit())
     }
-
     sortByFit = (e) => {
 
         var buf = this.state.searchResults;
-        var w=2;
+        var w = 1;
+        var fit = 0.3;
         
         buf.map(item => {
-
-            if(this.state.waist === 0 || isNaN(item.waist)){
-                //console.log(parseInt(item.waist));
-                var waistScore = 0;        
-            } else {
-                var waistScore = Math.pow(Math.abs(this.state.waist - parseInt(item.waist)), w); 
-            }
-
-            if(this.state.inseam === 0 || isNaN(item.inseam)){
-                var inseamScore = 0;
-               
-            } else {
-                var inseamScore = Math.pow(Math.abs(this.state.inseam - parseInt(item.inseam)), w);
-            }
-
-            if(this.state.frontRise === 0 || isNaN(item.frontRise)){
-                var frontRiseScore = 0;
-               
-            } else {
-                var frontRiseScore = Math.pow(Math.abs(this.state.frontRise - parseInt(item.frontRise)), w); 
-            }
-
-            if(this.state.backRise === 0 || isNaN(item.backRise)){
-                var backRiseScore = 0;
-            } else {
-                var backRiseScore = Math.pow(Math.abs(this.state.backRise - parseInt(item.backRise)), w); 
-            }
-
-            if(this.state.thigh === 0 || isNaN(item.thigh) ){
-                var thighScore = 0;
-            } else {
-                var thighScore = Math.pow(Math.abs(this.state.thigh - parseInt(item.thigh)), w); 
-            }
-
-            if(this.state.legOpening === 0 || isNaN(item.legOpening)){
-                var legOpeningScore = 0;
-            } else {
-                var legOpeningScore = Math.pow(Math.abs(this.state.legOpening - parseInt(item.legOpening)), w); 
-                
-            }
-
-            item.score = waistScore + inseamScore + frontRiseScore + backRiseScore + thighScore + legOpeningScore;
-            console.log (item.score);
-                   
+            var waistScore = measurementScore(this.state.waist, item.waist, w);
+            var inseamScore = measurementScore(this.state.inseam, item.inseam, w);
+            var frontRiseScore = measurementScore(this.state.frontRise, item.frontRise, w);
+            var backRiseScore = measurementScore(this.state.backRise, item.backRise, w);
+            var thighScore = measurementScore(this.state.thigh, item.thigh, w);
+            var legOpeningScore = measurementScore(this.state.legOpening, item.legOpening, w);
+           
+            item.score = waistScore + inseamScore + frontRiseScore +
+                backRiseScore + thighScore + legOpeningScore;
+            //console.log (item.score);
+        
         });
-      
+        var good = buf.filter(item => {
+            return item.score < fit
+        });
 
-        buf.sort((a, b) => {
+        var bad = buf.filter(item => {
+            return item.score >= fit
+        });
+
+        good.sort((a, b) => {
+            return parseFloat(a.score) - parseFloat(b.score);
+        });
+        bad.sort((a, b) => {
             return parseFloat(a.score) - parseFloat(b.score);
         });
 
-        this.setState({searchResults: buf});
-        console.log(buf);
+        this.setState({good: good});
+        this.setState({bad: bad});
+        //console.log(filter);
     }
 
 }

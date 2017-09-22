@@ -7,7 +7,7 @@ export default class Menu extends Component {
             <nav className='Menu'>
                 <div className='container'>
                     <MenuButton label='Fitmybutt'/>
-                    <MenuButton label='Login'/>
+                    <MenuButton label='Register'/>
                 </div>
             </nav>
 

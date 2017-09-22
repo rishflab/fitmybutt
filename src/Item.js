@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import JeansImg from './jeans.jpg';
 
 export default class Item extends Component {
     render() {
         return (
         <article className='Item'>    
-            <h1>
-                {this.props.price}
-            </h1>
-            <img src={JeansImg}/>
-            <h2>
-                {this.props.score}
-            </h2>
-            <p>  
-                {this.props.brand} {this.props.size}  {this.props.model}
-            </p>
+            <img src={JeansImg} onTouchStart={this.handleTouchStart}/>
+            <div className='title'>
+                <h1>${this.props.price}</h1>
+            </div>
+            <p>{this.props.brand}</p>
+            <p>{this.props.model}</p>
         </article>
         );
+    }
+    handleTouchStart = (e) => {
+        e.preventDefault();
+        
     }
 }
