@@ -10,6 +10,7 @@
   --background: #FFFFFF;
   --page-width: 60rem;
   --side-margin: 5rem;
+  font-size: 12px;
 }
 .Menu  {
   background-color: var(--main);
@@ -50,17 +51,35 @@ Main .container {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 10rem;
+  height: 12rem;
   color: var(--text);
   background-color: var(--banner);
   margin-bottom: 1rem;
 }
-.Banner h1 {
-  font-size: 2rem;
+h1 {
+  font-size: 2.74rem;
+  margin-bottom: 0.3rem;
 }
-.Banner h5 {
-  margin-top: 0.3rem;
+h2 {
+  font-size: 2.2rem;
 }
+h3 {
+  font-size: 1.72rem;
+}
+h4 {
+  font-size: 1.33rem;
+}
+h5 {
+  font-size: 1rem;
+}
+p {
+  font-size: 1rem;
+}
+label {
+  font-size: 0.73rem;
+  color: var(--muted);
+}
+
 .Guide {
   margin-top: 1rem;
   color: var(--banner);
@@ -71,7 +90,6 @@ Main .container {
   padding-bottom: 0.25rem;
   padding-left: 0.3rem;
   padding-right: 0.3rem;
-  font-size: 0.6rem;
 }
 .DimensionInput{
   border: none;
@@ -81,10 +99,7 @@ Main .container {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-.DimensionInput label {
-    font-size: 0.6rem;
-    color: var(--muted);
-}
+
 .DimensionInput input {
   margin-top: 0.3rem;
   background-color: var(--background);
@@ -107,16 +122,7 @@ Main .container {
   height: 15rem;
   width: 10rem;
 };
-.Item h1 {
-  margin-top: 1rem;
-  font-size: 1rem;
-}
-.Item h2 {
-  font-size: 0.8rem;
-}
-.Item p {
-  font-size: 0.7rem;
-}
+
 .Item .title {
   display: flex;
   flex-direction: row;

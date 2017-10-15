@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import JeansImg from './jeans.jpg';
+//import JeansImg from './jeans.jpg';
 
 export default class Item extends Component {
     render() {
         return (
         <article className='Item'>    
-            <img src={JeansImg} onTouchStart={this.handleTouchStart}/>
+            <img src={this.props.img} onTouchStart={this.handleTouchStart}/>
             <div className='title'>
-                <h1>${this.props.price}</h1>
+                <h5>{this.props.price}</h5>
             </div>
             <p>{this.props.brand}</p>
             <p>{this.props.model}</p>

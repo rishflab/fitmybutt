@@ -5,12 +5,13 @@ export default class Banner extends Component {
     render() {
         return (
             <section className='Banner'>
-                <h1>Clothes that Fit</h1>
-                <h5>all in one place</h5>
-                 <button className='Guide'>
+                <h1>Fitmybutt</h1>
+                <div>A clothing aggregator</div>
+                <p>that sorts by fit.</p>
+                <button className='Guide'>
                     Measuring Guide
                 </button>
-                
+            
             </section>
         );
     }
